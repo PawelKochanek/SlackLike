@@ -4,35 +4,42 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainServer {
 
     private ServerSocket serverSocket;
-    private Socket clientSocet;
-    private PrintWriter output;
-    private BufferedReader input;
+    private List<Socket> connectedClients = new ArrayList<Socket>();
+    private boolean online;
+    private Thread acceptingThread;
 
-    public void startServer (int port) throws IOException {
+    public void startServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
+        System.out.println("Server is running...");
+        online = true;
 
-        System.out.println("Server is running");
-        clientSocet = serverSocket.accept();
-        System.out.println("Client has been connected");
-        input = new BufferedReader(new InputStreamReader(clientSocet.getInputStream()));
-        System.out.println(input.readLine());
 
-        while(true){
-            String text = input.readLine();
-            System.out.println(text);
-        }
-        ///////////// odpowiedź do clienta /////////////////////
-//        output = new PrintWriter(clientSocet.getOutputStream(),true);
-//        output.println("Hello from server");
+        acceptingThread = new Thread(() -> {
+            while (online) {
+                Socket clientSocket = null;
+                try {
+                    clientSocket = serverSocket.accept();
+                } catch (IOException e) {
+                    online = false;
+                    System.out.println("Server has been disconnected");
+                    break;
+                }
+                connectedClients.add(clientSocket);
+                System.out.println("Client has been connected. " +
+                        "Users online: " + connectedClients.size());
+            }
+            System.out.println("Server has been disconnected");
+        });
+        acceptingThread.start();
+    }
 
-        ///////////////////// wiadomosc ze kliet sie rozlaczyl ///////////////////////////////////////
-
-//        while(!clientSocet.isClosed() && !clientSocet.isInputShutdown()){
-//        }
-//        System.out.println("Client has been disconnected");
+    public boolean isOnline(){
+        return online;
     }
 }
