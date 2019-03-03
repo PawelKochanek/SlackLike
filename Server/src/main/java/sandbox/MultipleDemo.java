@@ -1,3 +1,5 @@
+package sandbox;
+
 public class MultipleDemo {
     public static void main(String[] args) {
         Thread thread1 = new Thread(new MultipleThreading("Adolf Pierwszy"));

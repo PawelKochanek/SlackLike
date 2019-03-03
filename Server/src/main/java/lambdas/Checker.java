@@ -1,4 +1,7 @@
 package lambdas;
 
-public class Checker {
+@FunctionalInterface
+public interface Checker {
+    boolean check(int number);
+
 }

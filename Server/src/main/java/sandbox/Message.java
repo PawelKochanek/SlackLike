@@ -1,3 +1,5 @@
+package sandbox;
+
 import lombok.Getter;
 
 import java.time.LocalDateTime;

@@ -1,3 +1,5 @@
+package sandbox;
+
 public class MultipleThreading implements Runnable {
     private final String name;
 
