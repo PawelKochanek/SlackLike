@@ -3,7 +3,7 @@ package sandbox;
 public class Main {
     public static void main(String[] args) {
         NetworkBasedChatClient client = new TcpChatClient();
-        client.connect("localhost", 50000);
+        client.connect("192.168.1.74", 50000);
 
         UserInputProvider inputProvider = new ConsoleInputProvider();
         while(client.isOnline()) {

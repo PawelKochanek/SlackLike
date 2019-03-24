@@ -1,6 +1,6 @@
 package sandbox;
 
-import java.io.IOException;
+        import java.io.IOException;
 
 interface NetworkBasedChatClient extends ChatClient {
     void connect(String ip, int port);
