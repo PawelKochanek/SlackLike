@@ -1,5 +1,4 @@
-package sandbox;
-
+import commands.ChatCommand;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,10 +65,10 @@ public class TcpChatClient implements NetworkBasedChatClient {
     }
 
     @Override
-    public void sendMessage(String message) {
-        if(isOnline()) {
-            output.println(message);
-        }
+    public void sendMessage(ChatCommand message) {
+//        if(isOnline() && !message.trim().isEmpty()) {
+//            output.println(message);
+//        }
     }
 
     @Override
